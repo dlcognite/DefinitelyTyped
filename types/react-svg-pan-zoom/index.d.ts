@@ -1,4 +1,4 @@
-// Type definitions for react-svg-pan-zoom 3.3
+// Type definitions for react-svg-pan-zoom 3.8
 // Project: https://github.com/chrvadala/react-svg-pan-zoom#readme, https://chrvadala.github.io/react-svg-pan-zoom
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,13 +23,19 @@ export const POSITION_RIGHT = 'right';
 export const POSITION_BOTTOM = 'bottom';
 export const POSITION_LEFT = 'left';
 
+export const ACTION_ZOOM = 'zoom';
+export const ACTION_PAN = 'pan';
+
 export const ALIGN_CENTER = 'center';
 export const ALIGN_LEFT = 'left';
 export const ALIGN_RIGHT = 'right';
 export const ALIGN_TOP = 'top';
 export const ALIGN_BOTTOM = 'bottom';
+export const ALIGN_COVER = 'cover';
 
 export type Mode = typeof MODE_IDLE | typeof MODE_PANNING | typeof MODE_ZOOMING;
+
+export type AlignType = typeof ALIGN_CENTER | typeof ALIGN_LEFT | typeof ALIGN_RIGHT | typeof ALIGN_TOP | typeof ALIGN_BOTTOM | typeof ALIGN_COVER;
 
 export interface Value {
 	version: 2;
@@ -41,6 +47,7 @@ export interface Value {
 	d: number;
 	e: number;
 	f: number;
+	lastAction: typeof ACTION_ZOOM | typeof ACTION_PAN;
 	viewerWidth: number;
 	viewerHeight: number;
 	SVGWidth: number;
@@ -186,7 +193,7 @@ export class ReactSVGPanZoom extends React.Component<Props> {
 	pan(SVGDeltaX: number, SVGDeltaY: number): void;
 	zoom(SVGPointX: number, SVGPointY: number, scaleFactor: number): void;
 	fitSelection(selectionSVGPointX: number, selectionSVGPointY: number, selectionWidth: number, selectionHeight: number): void;
-	fitToViewer(): void;
+	fitToViewer(SVGAlignX?: AlignType, SVGAlignY?:AlignType): void;
 	setPointOnViewerCenter(SVGPointX: number, SVGPointY: number, zoomLevel: number): void;
 	reset(): void;
 	zoomOnViewerCenter(scaleFactor: number): void;
@@ -202,7 +209,7 @@ export class UncontrolledReactSVGPanZoom extends React.Component<UncontrolledPro
 	pan(SVGDeltaX: number, SVGDeltaY: number): void;
 	zoom(SVGPointX: number, SVGPointY: number, scaleFactor: number): void;
 	fitSelection(selectionSVGPointX: number, selectionSVGPointY: number, selectionWidth: number, selectionHeight: number): void;
-	fitToViewer(): void;
+	fitToViewer(SVGAlignX?: AlignType, SVGAlignY?:AlignType): void;
 	setPointOnViewerCenter(SVGPointX: number, SVGPointY: number, zoomLevel: number): void;
 	reset(): void;
 	zoomOnViewerCenter(scaleFactor: number): void;
@@ -250,7 +257,7 @@ export function zoom(value: Value, SVGPointX: number, SVGPointY: number, scaleFa
 export function fitSelection(
 	value: Value, selectionSVGPointX: number, selectionSVGPointY: number, selectionWidth: number, selectionHeight: number): Value;
 
-export function fitToViewer(value: Value): Value;
+export function fitToViewer(value: Value, SVGAlignX?: AlignType, SVGAlignY?:AlignType): Value;
 
 export function zoomOnViewerCenter(value: Value, scaleFactor: number): Value;
 
